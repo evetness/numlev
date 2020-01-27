@@ -11,16 +11,7 @@ def normInf(A):
 
 def inverse(A):
     n = len(A)
-    R = [[0.0 for _ in range(n * 2)] for _ in range(n)]
-
-    for i in range(n):
-        for j in range(n):
-            R[i][j] = A[i][j]
-
-    for i in range(n):
-        for j in range(n, n * 2):
-            if i == (j - n):
-                R[i][j] = 1
+    R = [[A[i][j] if j < len(A[0]) else 0.0 if i != (j - n) else 1 for j in range(n * 2)] for i in range(n)]
 
     for i in range(n):
         while R[i][i] == 0:
@@ -34,8 +25,7 @@ def inverse(A):
                 for k in range(2 * n):
                     R[j][k] -= t * R[i][k]
 
-    for i in range(n * n):
-        R[int(i / n)].pop(0)
+    [R[int(i/n)].pop(0) for i in range(n * n)]
 
     return R
 
